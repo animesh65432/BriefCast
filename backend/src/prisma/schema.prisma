@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  Id  Int   @id @default(autoincrement())
+  Name String?
+  Email String @unique
+  PassWord String?
+  Takeaways Takeaways[]
+}
+
+model Takeaways {
+  Id   Int @id @default(autoincrement())
+  takeway String
+  User   Users  @relation(fields: [UserId],references: [Id])
+  UserId  Int
+}
